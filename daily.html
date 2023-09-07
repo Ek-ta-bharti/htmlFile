@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Challenge Tracker</title>
+    <style>
+        /* Add your CSS styles here */
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Challenge Tracker</h1>
+    </header>
+
+    <section id="challenge">
+        <h2>Your Challenge</h2>
+        <label for="challengeName">Challenge Name:</label>
+        <input type="text" id="challengeName" placeholder="Enter Challenge Name">
+
+        <label for="startDate">Starting Date:</label>
+        <input type="date" id="startDate">
+
+        <button onclick="startChallenge()">Start Challenge</button>
+    </section>
+
+    <section id="progress">
+        <h2>Progress</h2>
+        <textarea id="dailyNotes" rows="4" cols="50" placeholder="Enter your daily notes"></textarea>
+
+        <button onclick="saveProgress()">Save Progress</button>
+        <button onclick="showProgress()">Show Progress</button>
+
+        <div id="progressDisplay">
+            <!-- Progress will be displayed here -->
+        </div>
+    </section>
+
+    <script>
+        let challengeName = "";
+        let startDate = "";
+        let progressNotes = [];
+
+        function startChallenge() {
+            challengeName = document.getElementById("challengeName").value;
+            startDate = document.getElementById("startDate").value;
+            alert(`Challenge "${challengeName}" started on ${startDate}`);
+        }
+
+        function saveProgress() {
+            const dailyNote = document.getElementById("dailyNotes").value;
+            progressNotes.push({ date: new Date().toLocaleDateString(), note: dailyNote });
+            document.getElementById("dailyNotes").value = "";
+        }
+
+        function showProgress() {
+            let progressDisplay = document.getElementById("progressDisplay");
+            progressDisplay.innerHTML = `<h3>Progress for Challenge: ${challengeName}</h3>`;
+            
+            for (let i = 0; i < progressNotes.length; i++) {
+                progressDisplay.innerHTML += `<p>Date: ${progressNotes[i].date}</p>`;
+                progressDisplay.innerHTML += `<p>Note: ${progressNotes[i].note}</p>`;
+            }
+        }
+    </script>
+</body>
+</html>
